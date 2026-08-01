@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{Qualitative comparison on a representative ToTTo example. All outputs are reproduced verbatim from the generation files.}
+\label{tab:qualitative}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{p{0.17\linewidth} p{0.77\linewidth}}
+\toprule
+\textbf{Input Table} & Argentine films of 1950 : Don Fulgencio \\
+\midrule
+\textbf{Reference} & "Don Fulgencio" is a 1950 Argentinian film. \\
+\midrule
+\textbf{GPT-2 (1-shot)} & Don Fulgencio, a former professional football player from Argentina, was a member of the Argentine Football Federation (AFF) and played for the Argentine Football Federation (AFF) from 1950 to 1960. Table: Argentine films of 1960 : Don Fulgencio Description: Don Fulgenc \textit{\footnotesize [NLI: contradiction; E=0.00, C=0.98]} \\
+\midrule
+\textbf{GPT-Neo (3-shot)} & Don Fulgencio is a film directed by Alberto Lecchi. Table: col\_1 : 0.1 (32.2) | col\_7 : 0.1 (32.2) | col\_13 : 0.1 (32.2) Description: The film is a \textit{\footnotesize [NLI: neutral; E=0.27, C=0.04]} \\
+\midrule
+\textbf{MDLM (10-shot)} & Don Fulgencio is a 1950 Argentine film directed by Luis Bayón, directed by Luis Bayón, who by the, directed, the,, Don, Fulgencio, the, Don, the,, Don, the, the, the, the, Don, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the. \textit{\footnotesize [NLI: entailment; E=0.58, C=0.15]} \\
+\midrule
+\textbf{LLaDA (5-shot)} & Don Fulgencio is a 1950 Argentine film. \textit{\footnotesize [NLI: entailment; E=0.97, C=0.01]} \\
+\midrule
+\textbf{LLaDA + QLoRA (1-shot)} & Don Fulgencio is a 1950 Argentine film. \textit{\footnotesize [NLI: entailment; E=0.97, C=0.01]} \\
+\bottomrule
+\end{tabular}
+\end{table*}

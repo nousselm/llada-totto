@@ -62,7 +62,7 @@ from transformers import (
 # ============================================================
 
 BASE_DIR = Path(".")
-OUTPUT_DIR = BASE_DIR / "qualitative_selection_v2"
+OUTPUT_DIR = BASE_DIR / "outputs" / "qualitative_selection"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 SHOTS = [0, 1, 3, 5, 10]

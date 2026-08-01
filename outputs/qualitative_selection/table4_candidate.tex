@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{Failure case illustrating common generation errors across models. All outputs are reproduced verbatim from the generation files.}
+\label{tab:failure}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{p{0.17\linewidth} p{0.77\linewidth}}
+\toprule
+\textbf{Input Table} & Year : 2019 | English title : Handsome Siblings | Role : Su Ying \\
+\midrule
+\textbf{Reference} & In 2019, Liang played the role of Su Ying in Handsome Siblings. \\
+\midrule
+\textbf{GPT-2 (1-shot)} & In 2018 Italy consumed electricity in 6,054 kWh per capita. Table: Year : 2020 | English title : Family Life | Role : Su Ying Description: In 2017 Italy consumed electricity in 6,054 kWh per capita. Table: Year : 2022 | English title : Family Life | \textit{\footnotesize [NLI: contradiction; E=0.00, C=0.99]} \\
+\midrule
+\textbf{GPT-Neo (3-shot)} & . Table: Year : 1989 | Film : She's Out of Control | Role : Janet Pearson Description: In 1989, Catherine Hicks starred in She's Out of Control as Janet Pearson. Table: Year : 1989 | Film : She's Out of Control | Role : Janet Pearson Description: In \textit{\footnotesize [NLI: entailment; E=0.63, C=0.08]} \\
+\midrule
+\textbf{MDLM (10-shot)} & In 2019, Su Ying played the role of Su Ying in the English film Handsome Siblings, a tells the story of of the two sisters, Su Ling and Su Mei, who are revealed to be the parents of of the children,, Ling Ling, Mei,, and Ling Mei. \textit{\footnotesize [NLI: contradiction; E=0.00, C=0.97]} \\
+\midrule
+\textbf{LLaDA (5-shot)} & In 2019, Chen played the role of Su Ying in the television series Handsome Siblings. \textit{\footnotesize [NLI: neutral; E=0.07, C=0.42]} \\
+\midrule
+\textbf{LLaDA + QLoRA (1-shot)} & Kim Bum played the role of Su Ying in Handsome Siblings \textit{\footnotesize [NLI: contradiction; E=0.00, C=1.00]} \\
+\bottomrule
+\end{tabular}
+\end{table*}
