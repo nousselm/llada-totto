@@ -1,0 +1,55 @@
+True
+
+Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
+Device : cuda
+
+
+Train : 5000 | Eval : 500 | Eval_100 : 100
+
+
+Loading BERTScore backbone (bert-base-uncased) …
+
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+
+[transformers] [1mBertModel LOAD REPORT[0m from: bert-base-uncased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+
+Loading NLI model (cross-encoder/nli-MiniLM2-L6-H768) …
+
+
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]
+
+
+=======================================================
+  Loading EleutherAI/gpt-neo-1.3B
+=======================================================
+
+
+Loading weights:   0%|          | 0/316 [00:00<?, ?it/s]
+
+[transformers] [1mGPTNeoForCausalLM LOAD REPORT[0m from: EleutherAI/gpt-neo-1.3B
+Key                                               | Status     |  | 
+--------------------------------------------------+------------+--+-
+transformer.h.{0...23}.attn.attention.masked_bias | UNEXPECTED |  | 
+transformer.h.{0...22}.attn.attention.bias        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+
+Loaded — 1316M parameters on cuda
+
+Calibrating loaders …

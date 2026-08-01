@@ -1,0 +1,27 @@
+|   Shot  |      BLEU | ROUGE-L | BERTScore F1 | NLI Entailment | NLI Contradiction |
+| :-----: | --------: | ------: | -----------: | -------------: | ----------------: |
+|  0-shot | **12.09** |   0.375 |        0.900 |          0.426 |             0.187 |
+|  1-shot | **24.15** |   0.474 |        0.914 |          0.284 |             0.410 |
+|  3-shot | **23.28** |   0.473 |        0.916 |          0.266 |             0.438 |
+|  5-shot | **23.91** |   0.470 |        0.916 |          0.224 |             0.494 |
+| 10-shot | **21.99** |   0.476 |        0.919 |          0.279 |             0.445 |
+
+gpt2 
+0:Self-BLEU : 0.187546      Mean Entailment     : 0.658787Mean Contradiction  : 0.164737
+
+1Self-BLEU : 0.085315       Mean Entailment     : 0.329223Mean Contradiction  : 0.499981
+3Self-BLEU : 0.134296     Mean Entailment     : 0.395932Mean Contradiction  : 0.388712
+5Self-BLEU : 0.105155       Mean Entailment     : 0.289228Mean Contradiction  : 0.460519
+10Self-BLEU : 0.128998        Mean Entailment     : 0.374213Mean Contradiction  : 0.312868
+
+gptneo
+0Self-BLEU : 0.099728     Mean Entailment     : 0.428921Mean Contradiction  : 0.208726
+
+1Self-BLEU : 0.092274      Mean Entailment     : 0.281893Mean Contradiction  : 0.332259
+
+3Self-BLEU : 0.124575      Mean Entailment     : 0.301346Mean Contradiction  : 0.391305
+
+5Self-BLEU : 0.133200       Mean Entailment     : 0.317444Mean Contradiction  : 0.302318
+
+10Self-BLEU : 0.169930         Mean Entailment     : 0.151158Mean Contradiction  : 0.299318
+

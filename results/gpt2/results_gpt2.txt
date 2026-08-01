@@ -1,0 +1,111 @@
+True
+
+Train : 5000 | Eval : 500 | Eval_100 : 100
+
+
+Loading BERTScore backbone (bert-base-uncased) …
+
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+
+[transformers] [1mBertModel LOAD REPORT[0m from: bert-base-uncased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+
+Loading NLI model (cross-encoder/nli-MiniLM2-L6-H768) …
+
+
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]
+
+
+=======================================================
+  Loading GPT-2
+=======================================================
+
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]
+
+
+Calibrating loaders …
+  k= 0 | max_length=64 | 100 examples
+  k= 1 | max_length=148 | 100 examples
+  k= 3 | max_length=295 | 100 examples
+  k= 5 | max_length=429 | 100 examples
+  k=10 | max_length=756 | 100 examples
+
+=======================================================
+  k=0-shot | 25 batches
+=======================================================
+  batch  20/25 | BLEU=0.0239 | RL=0.1304 | BS=0.5046 | NLI=0.0000
+
+  [k=0] BLEU=0.0222 | ROUGE-L=0.1292 | BERTScore=0.5056 | NLI=0.0000
+
+=======================================================
+  k=1-shot | 25 batches
+=======================================================
+  batch  20/25 | BLEU=0.0323 | RL=0.1961 | BS=0.5297 | NLI=0.0000
+
+  [k=1] BLEU=0.0343 | ROUGE-L=0.1945 | BERTScore=0.5294 | NLI=0.0000
+
+=======================================================
+  k=3-shot | 25 batches
+=======================================================
+  batch  20/25 | BLEU=0.0227 | RL=0.1817 | BS=0.5174 | NLI=0.0000
+
+  [k=3] BLEU=0.0250 | ROUGE-L=0.1852 | BERTScore=0.5222 | NLI=0.0000
+
+=======================================================
+  k=5-shot | 25 batches
+=======================================================
+  batch  20/25 | BLEU=0.0221 | RL=0.1822 | BS=0.5169 | NLI=0.0000
+
+  [k=5] BLEU=0.0248 | ROUGE-L=0.1840 | BERTScore=0.5189 | NLI=0.0000
+
+=======================================================
+  k=10-shot | 25 batches
+=======================================================
+  batch  20/25 | BLEU=0.0210 | RL=0.1686 | BS=0.5012 | NLI=0.0000
+
+  [k=10] BLEU=0.0238 | ROUGE-L=0.1699 | BERTScore=0.5049 | NLI=0.0000
+
+
+
+Results saved → /content/drive/MyDrive/genai/results_gpt2_100.json
+
+
+{0: {'bleu': 0.02222541113548119, 'rouge1': 0.1512754415908375, 'rouge2': 0.04929744422155519, 'rouge_l': 0.12920207662687205, 'bertscore': 0.5056146988272667, 'nli': 0.0}, 1: {'bleu': 0.034315320006867565, 'rouge1': 0.2495406544458299, 'rouge2': 0.09285750984615962, 'rouge_l': 0.19453100903104698, 'bertscore': 0.5293716478347779, 'nli': 0.0}, 3: {'bleu': 0.024979660909810773, 'rouge1': 0.23057051590614383, 'rouge2': 0.07895109349300151, 'rouge_l': 0.1852125863099875, 'bertscore': 0.5221656146645546, 'nli': 0.0}, 5: {'bleu': 0.024767985005022884, 'rouge1': 0.22339209400639234, 'rouge2': 0.07828994573545646, 'rouge_l': 0.1840198331497405, 'bertscore': 0.5188642799854278, 'nli': 0.0}, 10: {'bleu': 0.023841328176166635, 'rouge1': 0.20516831759475643, 'rouge2': 0.07264163317983224, 'rouge_l': 0.1698867496186386, 'bertscore': 0.5048829156160355, 'nli': 0.0}}
+
+
+  Qualitative k=0 → /content/drive/MyDrive/genai/gpt2_k0_qualitative_100.csv
+  Qualitative k=1 → /content/drive/MyDrive/genai/gpt2_k1_qualitative_100.csv
+  Qualitative k=3 → /content/drive/MyDrive/genai/gpt2_k3_qualitative_100.csv
+  Qualitative k=5 → /content/drive/MyDrive/genai/gpt2_k5_qualitative_100.csv
+  Qualitative k=10 → /content/drive/MyDrive/genai/gpt2_k10_qualitative_100.csv
+
+
+
+=======================================================
+  GPT-2 RESULTS SUMMARY
+=======================================================
+   k |    BLEU | ROUGE-L | BERTScore |     NLI
+──────────────────────────────────────────────
+   0 |  0.0222 |  0.1292 |    0.5056 |  0.0000
+   1 |  0.0343 |  0.1945 |    0.5294 |  0.0000
+   3 |  0.0250 |  0.1852 |    0.5222 |  0.0000
+   5 |  0.0248 |  0.1840 |    0.5189 |  0.0000
+  10 |  0.0238 |  0.1699 |    0.5049 |  0.0000
+
+
+
+GPT-2 unloaded. GPU memory freed.

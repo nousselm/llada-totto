@@ -1,0 +1,60 @@
+Globalement, les résultats montrent que le **fine-tuning QLoRA améliore les métriques de similarité**, mais **pas la fidélité sémantique mesurée par le NLI**.
+
+| Shot    | BLEU (Pre → QLoRA) | ROUGE-L | BERTScore | Entailment | Contradiction |
+| ------- | -----------------: | ------: | --------: | ---------: | ------------: |
+| 0-shot  |  **11.25 → 12.09** |       ↑ |         ↑ |          ↓ |             ↑ |
+| 1-shot  |  **21.54 → 24.15** |       ↑ |         ≈ |          ↓ |             ↑ |
+| 3-shot  |  **21.83 → 23.28** |       ↑ |         ≈ |          ↓ |             ↑ |
+| 5-shot  |  **21.96 → 23.91** |       ≈ |         ≈ |          ↓ |             ↑ |
+| 10-shot |  **20.73 → 21.99** |       ↑ |         ↑ |    ↑ léger |             ↑ |
+
+### Ce qu'on peut conclure
+
+* **BLEU** : amélioration nette sur toutes les configurations (+0.8 à +2.6 points). C'est le principal bénéfice du fine-tuning.
+* **ROUGE-L** : légère amélioration globale, surtout en 0, 1 et 10-shot.
+* **BERTScore** : très proche du modèle préentraîné, avec une légère hausse. Les deux modèles produisent donc des phrases de qualité sémantique similaire.
+* **NLI** : l'entailment diminue et la contradiction augmente presque partout. Cela suggère que le modèle fine-tuné génère davantage d'informations qui ne correspondent pas exactement à la référence (ou que le calcul NLI mérite d'être revérifié).
+
+### Observation intéressante
+
+Le **1-shot reste le meilleur compromis** :
+
+* meilleur BLEU (**24.15**),
+* bon ROUGE,
+* bon BERTScore,
+* et un contexte beaucoup plus court que 5 ou 10-shot.
+
+Le passage à **10-shot** n'apporte toujours pas de gain significatif, ce qui confirme l'effet de saturation observé avec le modèle préentraîné.
+
+### Conclusion
+
+Le fine-tuning QLoRA est **efficace** : il améliore clairement les métriques de recouvrement lexical (BLEU, ROUGE) tout en conservant un BERTScore élevé. En revanche, les résultats NLI sont contre-intuitifs et devraient être interprétés avec prudence tant que l'implémentation du calcul NLI n'a pas été validée. Si elle est correcte, cela pourrait indiquer que QLoRA produit des descriptions plus riches, mais aussi plus susceptibles d'introduire des informations absentes de la référence.
+
+
+### Résultats du modèle **QLoRA**
+
+|   Shot  | Nb exemples |      BLEU | ROUGE-L | BERTScore F1 | NLI Entailment | NLI Contradiction |
+| :-----: | :---------: | --------: | ------: | -----------: | -------------: | ----------------: |
+|  0-shot |     100     | **12.09** |   0.375 |        0.900 |          0.426 |             0.187 |
+|  1-shot |      99     | **24.15** |   0.474 |        0.914 |          0.284 |             0.410 |
+|  3-shot |     100     | **23.28** |   0.473 |        0.916 |          0.266 |             0.438 |
+|  5-shot |     100     | **23.91** |   0.470 |        0.916 |          0.224 |             0.494 |
+| 10-shot |     100     | **21.99** |   0.476 |        0.919 |          0.279 |             0.445 |
+
+---
+
+### Comparaison avec le modèle préentraîné
+
+| Métrique              | Préentraîné |           QLoRA | Observation                                              |
+| --------------------- | ----------: | --------------: | -------------------------------------------------------- |
+| **BLEU**              | 11.25–21.96 | **12.09–24.15** | **Amélioration nette**, surtout en 1-shot (+2.6 points). |
+| **ROUGE-L**           | 0.355–0.469 | **0.375–0.476** | Légère amélioration globale.                             |
+| **BERTScore F1**      | 0.895–0.918 | **0.900–0.919** | Très proche, avec un léger gain.                         |
+| **NLI Entailment**    | 0.259–0.451 |     0.224–0.426 | Légère baisse globale.                                   |
+| **NLI Contradiction** | 0.163–0.414 |     0.187–0.494 | Hausse des contradictions.                               |
+
+### Commentaire
+
+Le **fine-tuning QLoRA améliore clairement les performances** en termes de BLEU et, dans une moindre mesure, de ROUGE-L et de BERTScore, montrant que les générations sont plus proches des références. Le **1-shot offre le meilleur compromis**, avec le BLEU le plus élevé (24.15). En revanche, les scores NLI montrent une baisse de l'entailment et une augmentation des contradictions par rapport au modèle préentraîné. Cette tendance est inhabituelle et mérite d'être vérifiée (implémentation du NLI ou comportement du modèle), avant d'en tirer une conclusion définitive.
+
+

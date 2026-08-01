@@ -1,0 +1,79 @@
+Oui, tu as raison. Pour un papier solide, **NLI** et une **évaluation humaine** devraient apparaître. Je structurerais plutôt le papier ainsi :
+
+```text
+1. Introduction
+
+2. Related Work
+   2.1 Table-to-Text Generation
+   2.2 Diffusion Language Models
+   2.3 Evaluation of Text Generation
+
+3. Method
+   3.1 Models
+       - GPT-2
+       - GPT-Neo
+       - LLaDA
+       - MDLM
+   3.2 Retrieval
+   3.3 Prompting
+
+4. Experimental Setup
+   4.1 Dataset (ToTTo)
+   4.2 Implementation Details
+   4.3 Hyperparameters
+   4.4 Evaluation Metrics
+       - BLEU
+       - ROUGE
+       - BERTScore
+       - Self-BLEU
+       - NLI (Faithfulness / Entailment)
+
+5. Results
+   5.1 Automatic Evaluation
+       - BLEU
+       - ROUGE
+       - BERTScore
+       - Self-BLEU
+       - NLI
+   5.2 Human Evaluation
+       - Faithfulness
+       - Fluency
+       - Coverage
+       - Overall Preference
+   5.3 Qualitative Analysis
+       - Successful examples
+       - Failure cases
+
+6. Discussion
+   - Influence of diffusion vs autoregressive models
+   - Diversity vs fidelity
+   - Correlation between automatic metrics and human judgments
+   - Limitations
+
+7. Conclusion
+```
+
+### Je te recommande aussi d'ajouter :
+
+* **Table 1** : performances automatiques (BLEU, ROUGE, BERTScore, Self-BLEU, NLI)
+* **Table 2** : évaluation humaine
+* **Figure 1** : pipeline expérimental
+* **Figure 2** : exemples qualitatifs de générations
+
+Avec cette structure, ton papier ressemble beaucoup à ce qu'on retrouve dans les workshops ACL, EMNLP ou NeurIPS sur l'évaluation de modèles de génération.
+
+
+
+
+
+
+
+| Métrique  | Question                                      |
+| --------- | --------------------------------------------- |
+| BLEU      | Les mots sont-ils similaires à la référence ? |
+| ROUGE-1   | Les mots importants sont-ils présents ?       |
+| ROUGE-2   | Les expressions sont-elles similaires ?       |
+| ROUGE-L   | La structure globale est-elle similaire ?     |
+| BERTScore | Le sens est-il préservé ?                     |
+| Self-BLEU | Le modèle produit-il des textes variés ?      |
+avant de parler d'annex , commencons par nos principeau tableau, voici les resultat en piece jointe,  A titre informatique le reste sera peut etre mis en Appendix. Ici on est sur un short paper de 4 page et la limitation sera en 5em page , s'en suivra des Appendix .

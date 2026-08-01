@@ -1,0 +1,291 @@
+Merci. Ces résultats sont déjà **très intéressants**, et il y a plusieurs observations qui méritent d'être discutées. Si c'était un article ou un mémoire, voici comment je les analyserais.
+
+|    Shot |  BLEU | ROUGE-L | BERTScore | Entailment | Contradiction |
+| ------: | ----: | ------: | --------: | ---------: | ------------: |
+|  0-shot | 11.25 |   0.355 |     0.895 |      0.451 |         0.163 |
+|  1-shot | 21.54 |   0.458 |     0.913 |      0.305 |         0.352 |
+|  3-shot | 21.83 |   0.467 |     0.918 |      0.350 |         0.330 |
+|  5-shot | 21.96 |   0.467 |     0.917 |      0.270 |         0.414 |
+| 10-shot | 20.73 |   0.469 |     0.918 |      0.259 |         0.404 |
+
+---
+
+# 1. Les performances augmentent énormément entre 0-shot et 1-shot
+
+C'est le résultat le plus évident.
+
+BLEU passe de
+
+```text
+11.25
+```
+
+à
+
+```text
+21.54
+```
+
+C'est quasiment **un doublement**.
+
+ROUGE-L augmente aussi fortement :
+
+```text
+0.355
+→
+0.458
+```
+
+BERTScore :
+
+```text
+0.895
+→
+0.913
+```
+
+**Interprétation**
+
+Le modèle LLaDA bénéficie énormément d'un seul exemple (one-shot). Cela montre qu'il sait exploiter les démonstrations fournies dans le prompt.
+
+---
+
+# 2. Après 1-shot, le gain est très faible
+
+Entre
+
+1-shot
+
+↓
+
+3-shot
+
+↓
+
+5-shot
+
+↓
+
+10-shot
+
+on observe :
+
+BLEU
+
+21.54
+
+↓
+
+21.83
+
+↓
+
+21.95
+
+↓
+
+20.73
+
+La progression devient presque nulle.
+
+ROUGE et BERTScore suivent exactement le même comportement.
+
+Autrement dit :
+
+> ajouter davantage d'exemples ne permet quasiment plus d'améliorer les performances.
+
+C'est une observation assez classique dans les LLM.
+
+---
+
+# 3. Le 10-shot ne fait pas mieux
+
+C'est intéressant.
+
+BLEU diminue :
+
+```text
+21.95
+↓
+
+20.73
+```
+
+Pourquoi ?
+
+Plusieurs hypothèses :
+
+* le contexte devient plus long ;
+* le modèle est "pollué" par des exemples moins pertinents ;
+* certaines démonstrations récupérées sont moins similaires ;
+* effet de saturation.
+
+Il sera intéressant de voir si QLoRA réduit cette saturation.
+
+---
+
+# 4. BERTScore est très élevé
+
+Tous les scores sont autour de
+
+```text
+0.91
+```
+
+C'est excellent.
+
+Cela signifie que :
+
+> les phrases générées sont très proches sémantiquement des références.
+
+Autrement dit,
+
+même lorsque BLEU n'est pas parfait,
+
+la génération reste proche du sens attendu.
+
+C'est une bonne nouvelle.
+
+---
+
+# 5. Le résultat NLI est surprenant
+
+Regarde :
+
+0-shot
+
+Entailment
+
+```text
+0.451
+```
+
+Contradiction
+
+```text
+0.163
+```
+
+Puis :
+
+5-shot
+
+Entailment
+
+```text
+0.270
+```
+
+Contradiction
+
+```text
+0.414
+```
+
+Normalement,
+
+on s'attendrait à :
+
+plus de shots
+
+↓
+
+plus d'entailment
+
+↓
+
+moins de contradiction.
+
+Ici c'est quasiment l'inverse.
+
+---
+
+# Ce résultat mérite d'être vérifié
+
+Avant d'en tirer des conclusions, je voudrais vérifier que le NLI est utilisé dans le bon sens.
+
+Pour le NLI il faut faire
+
+```
+premise = référence
+
+hypothesis = génération
+```
+
+et non l'inverse.
+
+Sinon les probabilités changent complètement.
+
+C'est la première chose que je vérifierais.
+
+---
+
+# 6. Même si le NLI est correct...
+
+...cela peut vouloir dire quelque chose d'intéressant.
+
+Le modèle produit davantage de détails.
+
+BLEU augmente.
+
+ROUGE augmente.
+
+Mais il ajoute aussi des informations qui ne sont pas dans la référence.
+
+Le classifieur NLI considère alors ces phrases comme des contradictions.
+
+C'est un phénomène assez fréquent.
+
+---
+
+# 7. Pour l'instant, le meilleur compromis est 3-shot ou 5-shot
+
+Personnellement je choisirais :
+
+3-shot
+
+car :
+
+BLEU
+
+≈ maximum
+
+ROUGE
+
+≈ maximum
+
+BERTScore
+
+≈ maximum
+
+Contradiction
+
+plus faible que 5-shot
+
+Le 5-shot apporte très peu.
+
+Le 10-shot semble même dégrader légèrement les performances.
+
+---
+
+# Ce qui m'intéresse maintenant
+
+Le plus intéressant sera de comparer ces résultats avec ceux du modèle **QLoRA**.
+
+Si le fine-tuning est efficace, j'aimerais voir quelque chose comme :
+
+| Métrique          | Pretrained |           QLoRA |
+| ----------------- | ---------: | --------------: |
+| BLEU              |       21.9 |       **24–27** |
+| ROUGE-L           |      0.468 |   **0.49–0.52** |
+| BERTScore         |      0.918 |   **0.92–0.93** |
+| NLI Entailment    |       0.35 |  **plus élevé** |
+| NLI Contradiction |       0.33 | **plus faible** |
+
+Si tu obtiens ce type d'amélioration, tu pourras défendre que le fine-tuning améliore non seulement la similarité lexicale (BLEU, ROUGE), mais aussi la fidélité sémantique des générations.
+
+---
+
+### Une dernière remarque importante
+
+Le seul résultat qui m'interpelle est le **NLI**. La baisse de l'entailment et la hausse des contradictions lorsque le nombre de shots augmente n'est pas le comportement auquel je m'attendrais. **Avant d'interpréter scientifiquement ces chiffres, je vérifierais l'implémentation du calcul NLI** (ordre prémisse/hypothèse, modèle utilisé, etc.). Une fois ce point validé, on pourra commenter ces résultats avec beaucoup plus de confiance.
